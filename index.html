@@ -4,9 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SSJ3 BOT-Z - Bot Discord Tournois Dragon Ball</title>
-    <meta name="description" content="SSJ3 BOT-Z - Le bot Discord ultime pour organiser des tournois Dragon Ball Legends">
+    <meta name="description" content="SSJ3 BOT-Z - Le Bot Discord ultime pour organiser des tournois Dragon Ball Legends">
     <meta name="theme-color" content="#e94560">
+    
+    <!-- PWA META TAGS -->
+    <link rel="manifest" href="./manifest.json">
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="SSJ3 BOT-Z">
+    
     <style>
         :root {
             --primary-color: #1a1a2e;
@@ -29,12 +36,12 @@
             color: var(--text-color);
             line-height: 1.6;
             min-height: 100vh;
+            padding: 20px;
         }
         
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 20px;
         }
         
         /* Header */
@@ -101,6 +108,7 @@
             font-weight: bold;
             font-size: 1.1rem;
             transition: all 0.3s;
+            margin: 10px;
         }
         
         .cta-button:hover {
@@ -108,7 +116,17 @@
             transform: translateY(-2px);
         }
         
-        /* Section Styles */
+        /* PWA Install Button */
+        #installButton {
+            background-color: #4CAF50;
+            display: none;
+        }
+        
+        #installButton.show {
+            display: inline-block;
+        }
+        
+        /* Features Section */
         .section {
             padding: 80px 0;
         }
@@ -119,21 +137,6 @@
             text-align: center;
         }
         
-        .section-subtitle {
-            font-size: 1.2rem;
-            color: var(--text-secondary);
-            text-align: center;
-            max-width: 800px;
-            margin: 0 auto 50px;
-        }
-        
-        .divider {
-            height: 1px;
-            background: rgba(255, 255, 255, 0.1);
-            margin: 40px 0;
-        }
-        
-        /* Features Section */
         .features-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -152,46 +155,6 @@
             transform: translateY(-5px);
         }
         
-        .feature-card h3 {
-            font-size: 1.5rem;
-            margin-bottom: 15px;
-        }
-        
-        .feature-card p {
-            color: var(--text-secondary);
-        }
-        
-        /* Download Section */
-        .download-info {
-            background-color: var(--card-bg);
-            border-radius: 10px;
-            padding: 30px;
-            margin-bottom: 30px;
-        }
-        
-        .version-info {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 20px;
-            padding-bottom: 20px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        
-        .features-list {
-            list-style: none;
-        }
-        
-        .features-list li {
-            padding: 8px 0;
-            display: flex;
-            align-items: center;
-        }
-        
-        .features-list li:before {
-            content: "✅";
-            margin-right: 10px;
-        }
-        
         /* Footer */
         footer {
             padding: 40px 0;
@@ -200,157 +163,119 @@
             color: var(--text-secondary);
         }
         
-        /* PWA Install Prompt */
-        .install-prompt {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background: var(--accent-color);
-            color: white;
-            padding: 15px 20px;
+        .pwa-info {
+            background: var(--card-bg);
+            padding: 20px;
             border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-            display: none;
-        }
-        
-        .install-prompt button {
-            background: white;
-            color: var(--accent-color);
-            border: none;
-            padding: 8px 15px;
-            border-radius: 5px;
-            margin-left: 10px;
-            cursor: pointer;
+            margin: 20px 0;
+            text-align: center;
         }
     </style>
 </head>
 <body>
-    <!-- Header -->
-    <header>
-        <div class="container">
+    <div class="container">
+        <!-- Header -->
+        <header>
             <div class="header-content">
-                <div class="logo">SSJ3 BOT-Z</div>
+                <div class="logo">SSJ3 BOT-Z ⚡</div>
                 <nav>
                     <ul>
                         <li><a href="#accueil">Accueil</a></li>
                         <li><a href="#fonctionnalites">Fonctionnalités</a></li>
-                        <li><a href="#telecharger">Télécharger</a></li>
+                        <li><a href="#install">Installer</a></li>
                     </ul>
                 </nav>
             </div>
-        </div>
-    </header>
+        </header>
 
-    <!-- Hero Section -->
-    <section class="hero" id="accueil">
-        <div class="container">
+        <!-- Hero Section -->
+        <section class="hero" id="accueil">
             <h1>SSJ3 BOT-Z</h1>
             <p>Le Bot Discord Ultime pour les Tournois Dragon Ball</p>
-            <a href="#telecharger" class="cta-button">Ajouter au Discord</a>
-        </div>
-    </section>
-
-    <!-- Features Section -->
-    <section class="section" id="fonctionnalites">
-        <div class="container">
-            <h2 class="section-title">Fonctionnalités Puissantes</h2>
-            <p class="section-subtitle">Découvrez ce qui fait de SSJ3 BOT-Z le bot le plus complet pour les tournois</p>
             
+            <!-- PWA Install Button -->
+            <button id="installButton" class="cta-button">📱 Installer l'App</button>
+            
+            <a href="https://discord.com/oauth2/authorize?client_id=VOTRE_ID_BOT" class="cta-button">
+                🤖 Ajouter au Discord
+            </a>
+        </section>
+
+        <!-- PWA Info Section -->
+        <section class="pwa-info" id="install">
+            <h2>📱 Application Installable</h2>
+            <p>Installez SSJ3 BOT-Z sur votre téléphone ou ordinateur pour un accès rapide !</p>
+            <p><small>Sur mobile : Chrome → Menu → "Ajouter à l'écran d'accueil"</small></p>
+        </section>
+
+        <!-- Features Section -->
+        <section class="section" id="fonctionnalites">
+            <h2 class="section-title">Fonctionnalités</h2>
             <div class="features-grid">
                 <div class="feature-card">
                     <h3>🎯 Tournois Automatisés</h3>
-                    <p>Création et gestion automatique de brackets, scores et classements en temps réel</p>
+                    <p>Gestion complète des brackets et scores</p>
                 </div>
                 <div class="feature-card">
-                    <h3>📝 Inscriptions Auto</h3>
-                    <p>Système d'inscription simplifié avec validation et création d'équipes automatique</p>
+                    <h3>📊 Classements Temps Réel</h3>
+                    <p>Suivi en direct des performances</p>
                 </div>
                 <div class="feature-card">
-                    <h3>🏆 Classements Live</h3>
-                    <p>Suivi des performances avec classements mis à jour instantanément</p>
+                    <h3>⚡ Installation Rapide</h3>
+                    <p>Application PWA installable en 1 clic</p>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Download Section -->
-    <section class="section" id="telecharger">
-        <div class="container">
-            <h2 class="section-title">Télécharger Maintenant</h2>
-            
-            <div class="download-info">
-                <div class="version-info">
-                    <div>
-                        <strong>SSJ3 BOT-Z</strong>
-                        <p>Version 2.4.1 - Dernière mise à jour: 19/04/2025</p>
-                    </div>
-                </div>
-                
-                <ul class="features-list">
-                    <li>Gestion complète de tournois</li>
-                    <li>Système de points et récompenses</li>
-                    <li>Inscriptions automatiques</li>
-                    <li>Classements en temps réel</li>
-                    <li>100% gratuit et open source</li>
-                </ul>
-            </div>
-            
-            <div style="text-align: center;">
-                <a href="#" class="cta-button">Ajouter au Serveur Discord</a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <p>© 2025 SSJ3 BOT-Z. Tous droits réservés.</p>
-            <p>Dragon Ball est une propriété de Toei Animation.</p>
-        </div>
-    </footer>
-
-    <!-- PWA Install Prompt -->
-    <div class="install-prompt" id="installPrompt">
-        Installer l'application SSJ3 BOT-Z ?
-        <button onclick="installApp()">Installer</button>
-        <button onclick="dismissPrompt()">Non</button>
+        <!-- Footer -->
+        <footer>
+            <p>© 2025 SSJ3 BOT-Z - Application PWA</p>
+            <p>Installez-moi sur votre device ! 📱</p>
+        </footer>
     </div>
 
-    <!-- Service Worker Registration -->
+    <!-- PWA SCRIPT -->
     <script>
-        // Register Service Worker for PWA
+        // Service Worker Registration
         if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('/sw.js')
-                .then(registration => console.log('SW registered'))
-                .catch(error => console.log('SW registration failed'));
+            window.addEventListener('load', function() {
+                navigator.serviceWorker.register('./sw.js')
+                    .then(function(registration) {
+                        console.log('Service Worker enregistré avec succès:', registration);
+                    })
+                    .catch(function(error) {
+                        console.log("Échec de l'enregistrement du Service Worker:", error);
+                    });
+            });
         }
 
         // PWA Install Prompt
         let deferredPrompt;
-        const installPrompt = document.getElementById('installPrompt');
+        const installButton = document.getElementById('installButton');
 
         window.addEventListener('beforeinstallprompt', (e) => {
             e.preventDefault();
             deferredPrompt = e;
-            installPrompt.style.display = 'block';
-        });
-
-        function installApp() {
-            if (deferredPrompt) {
+            installButton.classList.add('show');
+            
+            installButton.addEventListener('click', (e) => {
+                installButton.classList.remove('show');
                 deferredPrompt.prompt();
                 deferredPrompt.userChoice.then((choiceResult) => {
                     if (choiceResult.outcome === 'accepted') {
-                        console.log('User accepted install');
+                        console.log('Utilisateur a installé la PWA');
+                    } else {
+                        console.log('Utilisateur a refusé l installation');
                     }
                     deferredPrompt = null;
                 });
-            }
-            installPrompt.style.display = 'none';
-        }
+            });
+        });
 
-        function dismissPrompt() {
-            installPrompt.style.display = 'none';
-        }
+        window.addEventListener('appinstalled', (evt) => {
+            console.log('PWA installée avec succès!');
+            installButton.style.display = 'none';
+        });
     </script>
 </body>
 </html>
