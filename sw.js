@@ -1,4 +1,4 @@
-const CACHE_NAME = 'ssj3botz-pwa-v1';
+const CACHE_NAME = 'ssj3botz-v2';
 const urlsToCache = ['./', './index.html', './manifest.json'];
 
 self.addEventListener('install', event => {
