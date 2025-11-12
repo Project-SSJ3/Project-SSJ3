@@ -1,6 +1,6 @@
 {
   "name": "SSJ3 BOT-Z",
-  "short_name": "SSJ3BOTZ", 
+  "short_name": "SSJ3BOTZ",
   "description": "Bot Discord pour tournois Dragon Ball Legends",
   "start_url": "./",
   "display": "standalone",
