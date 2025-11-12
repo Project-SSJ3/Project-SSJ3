@@ -1,16 +1,14 @@
-<<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SSJ3 BOT-Z - Bot Discord Tournois Dragon Ball</title>
-    <meta name="description" content="SSJ3 BOT-Z - Le Bot Discord ultime pour organiser des tournois Dragon Ball Legends">
+    <title>SSJ3 BOT-Z - Gestionnaire de Tournois Discord</title>
+    <meta name="description" content="Gérez vos tournois Dragon Ball Legends sur Discord avec SSJ3 BOT-Z">
     
     <!-- PWA CONFIG -->
     <link rel="manifest" href="./manifest.json">
     <meta name="theme-color" content="#e94560">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
 
     <style>
@@ -18,6 +16,7 @@
             --primary-color: #1a1a2e;
             --secondary-color: #16213e;
             --accent-color: #e94560;
+            --discord-blurple: #5865F2;
             --text-color: #ffffff;
             --text-secondary: #b8b8b8;
             --card-bg: rgba(30, 30, 46, 0.8);
@@ -45,8 +44,12 @@
         
         /* Header */
         header {
-            padding: 30px 0;
+            padding: 20px 0;
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(0, 0, 0, 0.9);
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
         
         .header-content {
@@ -56,169 +59,120 @@
         }
         
         .logo {
-            font-size: 28px;
+            font-size: 24px;
             font-weight: bold;
             color: var(--text-color);
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
         
         nav ul {
             display: flex;
             list-style: none;
-            gap: 30px;
+            gap: 25px;
         }
         
         nav a {
             color: var(--text-secondary);
             text-decoration: none;
             font-weight: 500;
-            transition: color 0.3s;
+            transition: all 0.3s;
+            padding: 8px 15px;
+            border-radius: 8px;
         }
         
-        nav a:hover {
+        nav a:hover, nav a.active {
             color: var(--text-color);
+            background: rgba(88, 101, 242, 0.1);
         }
         
         /* Hero Section */
         .hero {
             padding: 80px 0;
             text-align: center;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="%231a1a2e"/><path d="M0 0L100 100M100 0L0 100" stroke="%235865F2" stroke-width="0.3" opacity="0.1"/></svg>');
         }
         
         .hero h1 {
-            font-size: 3.5rem;
+            font-size: 3rem;
             margin-bottom: 20px;
             font-weight: 700;
+            background: linear-gradient(135deg, var(--discord-blurple), #7983f5);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
         
         .hero p {
-            font-size: 1.5rem;
+            font-size: 1.3rem;
             color: var(--text-secondary);
             max-width: 600px;
-            margin: 0 auto 40px;
+            margin: 0 auto 30px;
         }
         
-        .cta-button {
-            display: inline-block;
-            background-color: var(--accent-color);
+        .discord-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--discord-blurple);
             color: white;
-            padding: 15px 40px;
-            border-radius: 5px;
+            padding: 12px 30px;
+            border-radius: 8px;
             text-decoration: none;
             font-weight: bold;
-            font-size: 1.1rem;
             transition: all 0.3s;
+            border: none;
+            cursor: pointer;
         }
         
-        .cta-button:hover {
-            background-color: #d43a55;
+        .discord-btn:hover {
+            background: #4752c4;
             transform: translateY(-2px);
         }
         
-        /* Section Styles */
+        /* Sections */
         .section {
-            padding: 80px 0;
+            padding: 60px 0;
         }
         
         .section-title {
-            font-size: 2.5rem;
-            margin-bottom: 20px;
+            font-size: 2.2rem;
+            margin-bottom: 30px;
             text-align: center;
+            color: var(--text-color);
         }
         
-        .section-subtitle {
-            font-size: 1.2rem;
-            color: var(--text-secondary);
-            text-align: center;
-            max-width: 800px;
-            margin: 0 auto 50px;
-        }
-        
-        .divider {
-            height: 1px;
-            background: rgba(255, 255, 255, 0.1);
-            margin: 40px 0;
-        }
-        
-        /* Features Section */
+        /* Features Grid */
         .features-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            margin-top: 50px;
+            gap: 25px;
+            margin-top: 40px;
         }
         
         .feature-card {
-            background-color: var(--card-bg);
-            border-radius: 10px;
-            padding: 30px;
-            transition: transform 0.3s;
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 25px;
+            transition: all 0.3s;
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
         
         .feature-card:hover {
             transform: translateY(-5px);
+            border-color: var(--discord-blurple);
         }
         
         .feature-card h3 {
-            font-size: 1.5rem;
+            font-size: 1.3rem;
             margin-bottom: 15px;
-        }
-        
-        .feature-card p {
-            color: var(--text-secondary);
-        }
-        
-        /* Download Section */
-        .download-info {
-            background-color: var(--card-bg);
-            border-radius: 10px;
-            padding: 30px;
-            margin-bottom: 30px;
-        }
-        
-        .version-info {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 20px;
-            padding-bottom: 20px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        
-        .features-list {
-            list-style: none;
-        }
-        
-        .features-list li {
-            padding: 8px 0;
+            color: var(--text-color);
             display: flex;
             align-items: center;
+            gap: 10px;
         }
         
-        .features-list li:before {
-            content: "✅";
-            margin-right: 10px;
-        }
-        
-        /* Rules Section */
-        .rules-content {
-            background-color: var(--card-bg);
-            border-radius: 10px;
-            padding: 30px;
-        }
-        
-        .rules-list {
-            list-style: none;
-            margin-bottom: 30px;
-        }
-        
-        .rules-list li {
-            padding: 10px 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-        }
-        
-        .rules-list strong {
-            color: var(--accent-color);
-        }
-        
+        /* Forms */
         .form-group {
             margin-bottom: 20px;
         }
@@ -227,48 +181,102 @@
             display: block;
             margin-bottom: 8px;
             font-weight: 500;
+            color: var(--text-color);
         }
         
-        .form-group input, .form-group select {
+        .form-control {
             width: 100%;
             padding: 12px 15px;
-            background-color: rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.1);
             border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 5px;
+            border-radius: 8px;
             color: var(--text-color);
             font-size: 1rem;
         }
         
-        /* Participants Section */
-        .participants-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
+        .form-control:focus {
+            outline: none;
+            border-color: var(--discord-blurple);
         }
         
-        .participants-table th, .participants-table td {
-            padding: 15px;
-            text-align: left;
+        /* Buttons */
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+        
+        .btn-primary {
+            background: var(--discord-blurple);
+            color: white;
+        }
+        
+        .btn-success {
+            background: #4CAF50;
+            color: white;
+        }
+        
+        .btn-danger {
+            background: var(--accent-color);
+            color: white;
+        }
+        
+        /* Tournament List */
+        .tournament-card {
+            background: var(--card-bg);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 15px 0;
+            border-left: 4px solid var(--discord-blurple);
+        }
+        
+        .tournament-header {
+            display: flex;
+            justify-content: between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .tournament-actions {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .players-list {
+            margin-top: 15px;
+        }
+        
+        .player-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 0;
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
         
-        .participants-table th {
-            color: var(--text-secondary);
-            font-weight: 500;
+        /* Stats */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
         }
         
-        .ranking {
-            background-color: var(--card-bg);
+        .stat-card {
+            background: var(--card-bg);
+            padding: 20px;
             border-radius: 10px;
-            padding: 30px;
-            margin-top: 30px;
+            text-align: center;
         }
         
-        .ranking-item {
-            display: flex;
-            justify-content: space-between;
-            padding: 15px 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        .stat-number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--discord-blurple);
+            margin-bottom: 5px;
         }
         
         /* Footer */
@@ -277,136 +285,24 @@
             border-top: 1px solid rgba(255, 255, 255, 0.1);
             text-align: center;
             color: var(--text-secondary);
-        }
-        
-        /* === NOUVEAUX STYLES PWA & INTERACTIONS === */
-        
-        /* BOUTON INSTALLATION PWA */
-        .pwa-install-btn {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background: linear-gradient(135deg, #e94560, #d43a55);
-            color: white;
-            border: none;
-            padding: 12px 20px;
-            border-radius: 25px;
-            cursor: pointer;
-            font-weight: bold;
-            box-shadow: 0 4px 15px rgba(233, 69, 96, 0.4);
-            z-index: 1000;
-            transition: all 0.3s;
-            display: none;
-        }
-        
-        .pwa-install-btn.show {
-            display: block;
-        }
-        
-        .pwa-install-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(233, 69, 96, 0.6);
-        }
-
-        /* BOUTONS INTERACTIFS */
-        .interactive-btn {
-            background: linear-gradient(135deg, #5865F2, #7983f5);
-            color: white;
-            border: none;
-            padding: 12px 25px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: bold;
-            margin: 10px;
-            transition: all 0.3s;
-            box-shadow: 0 4px 15px rgba(88, 101, 242, 0.3);
-        }
-        
-        .interactive-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(88, 101, 242, 0.5);
-        }
-        
-        .interactive-btn:active {
-            transform: translateY(-1px);
-        }
-        
-        .btn-success {
-            background: linear-gradient(135deg, #4CAF50, #45a049);
-        }
-        
-        .btn-warning {
-            background: linear-gradient(135deg, #ff9800, #e68900);
-        }
-        
-        /* ANIMATIONS */
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
-        }
-        
-        .pulse {
-            animation: pulse 2s infinite;
-        }
-        
-        /* STATS COUNTER */
-        .stat-number {
-            font-size: 2.5rem;
-            font-weight: bold;
-            color: #e94560;
-            transition: all 0.5s;
-        }
-        
-        /* TOURNAMENT BRACKET */
-        .bracket-match {
-            background: rgba(30, 30, 46, 0.8);
-            padding: 15px;
-            margin: 10px 0;
-            border-radius: 8px;
-            border-left: 4px solid #e94560;
-            transition: all 0.3s;
-            cursor: pointer;
-        }
-        
-        .bracket-match:hover {
-            transform: translateX(5px);
-            background: rgba(40, 40, 60, 0.9);
-        }
-        
-        /* PWA INFO SECTION */
-        .pwa-info {
-            background: var(--card-bg);
-            padding: 20px;
-            border-radius: 10px;
-            margin: 20px 0;
-            text-align: center;
+            background: rgba(0, 0, 0, 0.3);
         }
         
         /* Responsive */
         @media (max-width: 768px) {
             .header-content {
                 flex-direction: column;
-                gap: 20px;
-            }
-            
-            nav ul {
                 gap: 15px;
             }
             
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-            
-            .version-info {
-                flex-direction: column;
+            nav ul {
                 gap: 10px;
+                flex-wrap: wrap;
+                justify-content: center;
             }
             
-            .interactive-btn {
-                display: block;
-                width: 100%;
-                margin: 10px 0;
+            .hero h1 {
+                font-size: 2.2rem;
             }
         }
     </style>
@@ -417,14 +313,15 @@
     <header>
         <div class="container">
             <div class="header-content">
-                <div class="logo">SSJ3 BOT-Z</div>
+                <div class="logo">
+                    <span>⚡</span> SSJ3 BOT-Z
+                </div>
                 <nav>
                     <ul>
-                        <li><a href="#accueil">Accueil</a></li>
-                        <li><a href="#fonctionnalites">Fonctionnalités</a></li>
-                        <li><a href="#tournois">Tournois</a></li>
-                        <li><a href="#telecharger">Télécharger</a></li>
-                        <li><a href="#interactif">Interactif</a></li>
+                        <li><a href="#accueil" class="active">Accueil</a></li>
+                        <li><a href="#tournois">Mes Tournois</a></li>
+                        <li><a href="#creer">Créer</a></li>
+                        <li><a href="#classement">Classement</a></li>
                     </ul>
                 </nav>
             </div>
@@ -435,200 +332,157 @@
     <section class="hero" id="accueil">
         <div class="container">
             <h1>SSJ3 BOT-Z</h1>
-            <p>Le Meilleur Bot Discord pour les Tournois Dragon Ball</p>
-            <a href="#telecharger" class="cta-button">Rejoindre Notre Communauté</a>
+            <p>Gestionnaire de Tournois Discord pour Dragon Ball Legends</p>
+            <p style="color: #4CAF50; font-weight: bold; margin: 20px 0;">
+                ✅ Système complet de gestion de tournois avec données persistantes
+            </p>
+            <button class="discord-btn" onclick="scrollToSection('creer')">
+                <span>🎮</span> Créer un Tournoi
+            </button>
         </div>
     </section>
 
-    <!-- SECTION BOUTONS INTERACTIFS -->
-    <section class="section" id="interactif">
+    <!-- Statistics -->
+    <section class="section">
         <div class="container">
-            <h2 class="section-title">🚀 Actions Rapides</h2>
-            <div style="text-align: center; margin: 30px 0;">
-                <button class="interactive-btn pulse" onclick="joinTournament()">
-                    🎮 Rejoindre Tournoi
-                </button>
-                
-                <button class="interactive-btn btn-success" onclick="showStats()">
-                    📊 Voir Stats Live
-                </button>
-                
-                <button class="interactive-btn btn-warning" onclick="simulateBattle()">
-                    ⚔️ Simuler Combat
-                </button>
-                
-                <button class="interactive-btn" onclick="shareServer()">
-                    📣 Partager Serveur
-                </button>
-            </div>
-
-            <!-- SECTION STATS LIVE -->
-            <div class="pwa-info">
-                <h3>📈 Statistiques en Direct</h3>
-                <div style="display: flex; justify-content: center; gap: 30px; margin: 20px 0; flex-wrap: wrap;">
-                    <div>
-                        <div class="stat-number" id="onlineCount">72</div>
-                        <div>En Ligne</div>
-                    </div>
-                    <div>
-                        <div class="stat-number" id="tournamentCount">3</div>
-                        <div>Tournois Actifs</div>
-                    </div>
-                    <div>
-                        <div class="stat-number" id="battleCount">156</div>
-                        <div>Combats Today</div>
-                    </div>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number" id="statsTournaments">0</div>
+                    <div>Tournois Créés</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="statsPlayers">0</div>
+                    <div>Joueurs Inscrits</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="statsActive">0</div>
+                    <div>Tournois Actifs</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="statsMatches">0</div>
+                    <div>Matchs Programmes</div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Features Section -->
-    <section class="section" id="fonctionnalites">
+    <!-- Create Tournament -->
+    <section class="section" id="creer" style="background: rgba(0,0,0,0.3);">
         <div class="container">
-            <h2 class="section-title">Fonctionnalités Puissantes</h2>
-            <p class="section-subtitle">Découvrez ce qui fait de SSJ3 BOT-Z le bot le plus complet pour les tournois</p>
-            
-            <div class="divider"></div>
+            <h2 class="section-title">🎯 Créer un Nouveau Tournoi</h2>
             
             <div class="features-grid">
                 <div class="feature-card">
-                    <h3>🎯 Tournois Automatisés</h3>
-                    <p>Création et gestion automatique de brackets, scores et classements en temps réel</p>
-                </div>
-                <div class="feature-card">
-                    <h3>📝 Inscriptions Auto</h3>
-                    <p>Système d'inscription simplifié avec validation et création d'équipes automatique</p>
-                </div>
-                <div class="feature-card">
-                    <h3>🏆 Classements Live</h3>
-                    <p>Suivi des performances avec classements mis à jour instantanément</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- SECTION SIMULATION TOURNOI -->
-    <section class="section">
-        <div class="container">
-            <h2 class="section-title">🏆 Arbre du Tournoi Actif</h2>
-            <div style="max-width: 600px; margin: 0 auto;">
-                <div class="bracket-match" onclick="showMatchDetails(1)">
-                    <strong>Match 1:</strong> SonGoku vs Vegeta
-                    <div style="color: #b8b8b8; font-size: 0.9em;">En attente...</div>
-                </div>
-                
-                <div class="bracket-match" onclick="showMatchDetails(2)">
-                    <strong>Match 2:</strong> Freezer vs Cell  
-                    <div style="color: #ff9800; font-size: 0.9em;">⚡ En cours...</div>
-                </div>
-                
-                <div class="bracket-match" onclick="showMatchDetails(3)">
-                    <strong>Match 3:</strong> Boo vs Sangohan
-                    <div style="color: #4CAF50; font-size: 0.9em;">✅ Terminé - Boo gagne!</div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Download Section -->
-    <section class="section" id="telecharger">
-        <div class="container">
-            <h2 class="section-title">Télécharger Maintenant</h2>
-            <p class="section-subtitle">Ajoutez SSJ3 BOT-Z à votre serveur Discord et transformez votre communauté.</p>
-            
-            <div class="download-info">
-                <div class="version-info">
-                    <div>
-                        <strong>SSJ3 BOT-Z</strong>
-                        <p>Made with ❤️ par la communauté Dragon Ball</p>
+                    <h3>📝 Informations du Tournoi</h3>
+                    <div class="form-group">
+                        <label>Nom du Tournoi</label>
+                        <input type="text" id="tournamentName" class="form-control" placeholder="Tournoi Légendaire SSJ3">
                     </div>
-                    <div>
-                        <strong>Version: 2.4.1</strong>
-                        <p>Dernière mise à jour: 19/04/2025</p>
+                    <div class="form-group">
+                        <label>Description</label>
+                        <textarea id="tournamentDesc" class="form-control" placeholder="Description du tournoi..." rows="3"></textarea>
                     </div>
-                </div>
-                
-                <ul class="features-list">
-                    <li>Gestion complète de tournois</li>
-                    <li>Système de points et récompenses</li>
-                    <li>Inscriptions automatiques</li>
-                    <li>Classements en temps réel</li>
-                    <li>Personnalisation des règles</li>
-                    <li>Statistiques détaillées</li>
-                    <li>Intégration Zenies</li>
-                    <li>Support multi-langues</li>
-                </ul>
-            </div>
-            
-            <div style="text-align: center;">
-                <a href="#" class="cta-button">Ajouter au Serveur Discord</a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Tournament Rules Section -->
-    <section class="section" id="tournois">
-        <div class="container">
-            <h2 class="section-title">Règles du Tournoi</h2>
-            
-            <div class="rules-content">
-                <ul class="rules-list">
-                    <li><strong>Inscrivez-vous avec votre pseudo Discord</strong></li>
-                    <li>Victoires dans un match - <strong>1 POINT</strong></li>
-                    <li>Le premier à atteindre 3 victoires remporte le match</li>
-                    <li><strong>100 POINTS = 50,000 ZENIS</strong> de récompense !</li>
-                    <li>Respect et fair-play obligatoires</li>
-                </ul>
-                
-                <div class="divider"></div>
-                
-                <h3 style="margin-bottom: 20px;">Inscription au Tournoi</h3>
-                
-                <div class="form-group">
-                    <label for="discord-pseudo">Pseudo Discord *</label>
-                    <input type="text" id="discord-pseudo" placeholder="Ex: SonGoku#1234">
-                </div>
-                
-                <div class="form-group">
-                    <label for="main-character">Personnage Principal</label>
-                    <select id="main-character">
-                        <option>Son Goku</option>
-                        <option>Vegeta</option>
-                        <option>Boo</option>
-                        <option>Freezer</option>
-                        <option>Cell</option>
-                        <option>Sangohan</option>
-                    </select>
-                </div>
-                
-                <div class="form-group">
-                    <label for="skill-level">Niveau Estimé</label>
-                    <select id="skill-level">
-                        <option>Débutant</option>
-                        <option>Intermédiaire</option>
-                        <option>Avancé</option>
-                        <option>Professionnel</option>
-                    </select>
-                </div>
-                
-                <div style="text-align: center; margin-top: 30px;">
-                    <button class="interactive-btn btn-success" onclick="submitTournament()">
-                    🎯 S'INSCRIRE AU TOURNOI
+                    <div class="form-group">
+                        <label>Nombre maximum de joueurs</label>
+                        <select id="maxPlayers" class="form-control">
+                            <option value="8">8 joueurs</option>
+                            <option value="16">16 joueurs</option>
+                            <option value="32">32 joueurs</option>
+                            <option value="64">64 joueurs</option>
+                        </select>
+                    </div>
+                    <button class="btn btn-primary" onclick="createTournament()" style="width: 100%; padding: 12px;">
+                        🚀 Créer le Tournoi
                     </button>
                 </div>
+
+                <div class="feature-card">
+                    <h3>⚙️ Paramètres</h3>
+                    <div class="form-group">
+                        <label>Type de tournoi</label>
+                        <select id="tournamentType" class="form-control">
+                            <option value="elimination">Simple Elimination</option>
+                            <option value="double">Double Elimination</option>
+                            <option value="roundrobin">Round Robin</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Règles de victoire</label>
+                        <select id="winRules" class="form-control">
+                            <option value="bo3">Best of 3</option>
+                            <option value="bo5">Best of 5</option>
+                            <option value="bo7">Best of 7</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Récompenses</label>
+                        <input type="text" id="tournamentRewards" class="form-control" placeholder="Zenis, rôles Discord...">
+                    </div>
+                </div>
+
+                <div class="feature-card">
+                    <h3>🔗 Intégration Discord</h3>
+                    <div class="form-group">
+                        <label>Salon Discord pour annonces</label>
+                        <input type="text" id="discordChannel" class="form-control" placeholder="#tournois">
+                    </div>
+                    <div class="form-group">
+                        <label>Rôle des participants</label>
+                        <input type="text" id="participantRole" class="form-control" placeholder="@JoueurTournoi">
+                    </div>
+                    <p style="color: var(--text-secondary); font-size: 0.9rem; margin-top: 15px;">
+                        💡 Ces paramètres seront utilisés pour l'intégration avec votre bot Discord
+                    </p>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- PWA Info Section -->
+    <!-- My Tournaments -->
+    <section class="section" id="tournois">
+        <div class="container">
+            <h2 class="section-title">🏆 Mes Tournois</h2>
+            <div id="tournamentsList">
+                <!-- Tournois chargés dynamiquement -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Leaderboard -->
+    <section class="section" id="classement" style="background: rgba(0,0,0,0.3);">
+        <div class="container">
+            <h2 class="section-title">🏅 Classement Global</h2>
+            <div id="globalLeaderboard">
+                <!-- Classement chargé dynamiquement -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Features -->
     <section class="section">
         <div class="container">
-            <div class="pwa-info">
-                <h2>📱 Application Installable</h2>
-                <p>Installez SSJ3 BOT-Z sur votre téléphone ou ordinateur pour un accès rapide !</p>
-                <p><small>Sur mobile : Chrome → Menu → "Ajouter à l'écran d'accueil"</small></p>
-                <p><small>Sur desktop : Cherchez le bouton "Installer" dans votre navigateur</small></p>
+            <h2 class="section-title">✨ Fonctionnalités Réelles</h2>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <h3>✅ Gestion Complète</h3>
+                    <p>Créez et gérez vos tournois avec un système complet d'inscription et de suivi</p>
+                </div>
+                
+                <div class="feature-card">
+                    <h3>✅ Données Persistantes</h3>
+                    <p>Tous vos tournois et inscriptions sont sauvegardés localement</p>
+                </div>
+                
+                <div class="feature-card">
+                    <h3>✅ Prêt pour Discord</h3>
+                    <p>Structure conçue pour l'intégration avec votre bot Discord</p>
+                </div>
+                
+                <div class="feature-card">
+                    <h3>✅ Interface Responsive</h3>
+                    <p>Accessible sur tous vos devices, installable en PWA</p>
+                </div>
             </div>
         </div>
     </section>
@@ -636,171 +490,339 @@
     <!-- Footer -->
     <footer>
         <div class="container">
-            <p>© 2025 SSJ3 BOT-Z. Tous droits réservés.</p>
-            <p>Dragon Ball est une propriété de Toei Animation.</p>
+            <div class="logo" style="justify-content: center; margin-bottom: 20px;">
+                <span>⚡</span> SSJ3 BOT-Z
+            </div>
+            <p>Gestionnaire de Tournois Discord - Dragon Ball Legends</p>
+            <p style="margin-top: 10px; font-size: 0.9rem; color: var(--text-secondary);">
+                🎯 Système réel de gestion de tournois avec données persistantes
+            </p>
         </div>
     </footer>
 
-    <!-- BOUTON INSTALLATION PWA -->
-    <button class="pwa-install-btn" id="installButton">
-        📱 Installer l'App
-    </button>
-
-    <!-- === SCRIPTS PWA + INTERACTIONS === -->
+    <!-- Script -->
     <script>
-        // === PWA FUNCTIONALITY ===
-        if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('./sw.js')
-                .then(() => console.log('🔄 PWA Ready!'))
-                .catch(err => console.log('❌ PWA Error:', err));
-        }
-
-        let deferredPrompt;
-        const installButton = document.getElementById('installButton');
-
-        window.addEventListener('beforeinstallprompt', (e) => {
-            e.preventDefault();
-            deferredPrompt = e;
-            installButton.classList.add('show');
-        });
-
-        installButton.addEventListener('click', async () => {
-            if (!deferredPrompt) return;
-            
-            deferredPrompt.prompt();
-            const { outcome } = await deferredPrompt.userChoice;
-            
-            if (outcome === 'accepted') {
-                installButton.textContent = '✅ Installé!';
-                installButton.style.background = '#4CAF50';
+        // Gestionnaire de tournois
+        class TournamentManager {
+            constructor() {
+                this.tournaments = this.loadFromStorage('ssj3_tournaments') || [];
+                this.players = this.loadFromStorage('ssj3_players') || [];
+                this.updateStats();
+                this.loadTournaments();
+                this.loadLeaderboard();
             }
-            
-            deferredPrompt = null;
-            setTimeout(() => installButton.classList.remove('show'), 3000);
-        });
 
-        // === INTERACTIVE BUTTON FUNCTIONS ===
-        function joinTournament() {
-            const btn = event.target;
-            const originalText = btn.innerHTML;
-            btn.innerHTML = '🎮 Inscription...';
-            btn.disabled = true;
-            
-            setTimeout(() => {
-                btn.innerHTML = '✅ Inscrit!';
-                btn.style.background = 'linear-gradient(135deg, #4CAF50, #45a049)';
-                alert('🎉 Bienvenue dans le tournoi! Vérifiez vos MP Discord.');
+            // Créer un tournoi
+            createTournament(name, description, maxPlayers, type, winRules, rewards, discordChannel, participantRole) {
+                const tournament = {
+                    id: Date.now().toString(),
+                    name: name,
+                    description: description,
+                    maxPlayers: parseInt(maxPlayers),
+                    type: type,
+                    winRules: winRules,
+                    rewards: rewards,
+                    discordChannel: discordChannel,
+                    participantRole: participantRole,
+                    players: [],
+                    status: 'open',
+                    created: new Date().toLocaleString(),
+                    matches: []
+                };
+                
+                this.tournaments.push(tournament);
+                this.saveToStorage('ssj3_tournaments', this.tournaments);
+                this.updateStats();
+                this.loadTournaments();
+                
+                this.showNotification(`🎉 Tournoi "${name}" créé avec succès!`, 'success');
+                return tournament;
+            }
+
+            // Rejoindre un tournoi
+            joinTournament(tournamentId, playerName, discordTag) {
+                const tournament = this.tournaments.find(t => t.id === tournamentId);
+                if (!tournament) {
+                    this.showNotification('Tournoi non trouvé!', 'error');
+                    return;
+                }
+                
+                if (tournament.players.length >= tournament.maxPlayers) {
+                    this.showNotification('Tournoi complet!', 'error');
+                    return;
+                }
+                
+                if (tournament.players.find(p => p.name === playerName)) {
+                    this.showNotification('Vous êtes déjà inscrit à ce tournoi!', 'error');
+                    return;
+                }
+                
+                const player = {
+                    id: Date.now().toString(),
+                    name: playerName,
+                    discordTag: discordTag,
+                    joined: new Date().toLocaleString(),
+                    wins: 0,
+                    losses: 0
+                };
+                
+                tournament.players.push(player);
+                
+                // Ajouter au registre global des joueurs
+                if (!this.players.find(p => p.discordTag === discordTag)) {
+                    this.players.push({
+                        name: playerName,
+                        discordTag: discordTag,
+                        totalWins: 0,
+                        totalLosses: 0,
+                        tournamentsPlayed: 1
+                    });
+                }
+                
+                this.saveToStorage('ssj3_tournaments', this.tournaments);
+                this.saveToStorage('ssj3_players', this.players);
+                this.updateStats();
+                this.loadTournaments();
+                
+                this.showNotification(`✅ ${playerName} a rejoint le tournoi!`, 'success');
+            }
+
+            // Charger les tournois
+            loadTournaments() {
+                const container = document.getElementById('tournamentsList');
+                if (!container) return;
+                
+                if (this.tournaments.length === 0) {
+                    container.innerHTML = `
+                        <div class="feature-card" style="text-align: center;">
+                            <h3>📝 Aucun tournoi créé</h3>
+                            <p>Créez votre premier tournoi pour commencer!</p>
+                            <button class="btn btn-primary" onclick="scrollToSection('creer')">
+                                Créer un Tournoi
+                            </button>
+                        </div>
+                    `;
+                    return;
+                }
+                
+                container.innerHTML = this.tournaments.map(tournament => `
+                    <div class="tournament-card">
+                        <div class="tournament-header">
+                            <div>
+                                <h3 style="margin: 0;">${tournament.name}</h3>
+                                <p style="color: var(--text-secondary); margin: 5px 0;">${tournament.description}</p>
+                                <small>Créé le ${tournament.created} • ${tournament.players.length}/${tournament.maxPlayers} joueurs</small>
+                            </div>
+                            <div class="tournament-actions">
+                                <button class="btn btn-primary" onclick="viewTournament('${tournament.id}')">
+                                    👁️ Voir
+                                </button>
+                                <button class="btn btn-danger" onclick="deleteTournament('${tournament.id}')">
+                                    🗑️ Supprimer
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="players-list">
+                            <h4>👥 Joueurs Inscrits</h4>
+                            ${tournament.players.length === 0 ? 
+                                '<p style="color: var(--text-secondary);">Aucun joueur inscrit</p>' :
+                                tournament.players.map(player => `
+                                    <div class="player-item">
+                                        <span>${player.name}</span>
+                                        <small>${player.discordTag}</small>
+                                    </div>
+                                `).join('')
+                            }
+                        </div>
+                        
+                        ${tournament.players.length < tournament.maxPlayers ? `
+                            <div style="margin-top: 15px; padding: 15px; background: rgba(88, 101, 242, 0.1); border-radius: 8px;">
+                                <h4>📥 Inscription Ouverte</h4>
+                                <div style="display: flex; gap: 10px; margin-top: 10px;">
+                                    <input type="text" id="playerName_${tournament.id}" class="form-control" placeholder="Votre pseudo" style="flex: 1;">
+                                    <input type="text" id="discordTag_${tournament.id}" class="form-control" placeholder="Discord#0000" style="flex: 1;">
+                                    <button class="btn btn-success" onclick="joinSpecificTournament('${tournament.id}')">
+                                        Rejoindre
+                                    </button>
+                                </div>
+                            </div>
+                        ` : ''}
+                    </div>
+                `).join('');
+            }
+
+            // Charger le classement
+            loadLeaderboard() {
+                const container = document.getElementById('globalLeaderboard');
+                if (!container) return;
+                
+                const sortedPlayers = [...this.players]
+                    .sort((a, b) => (b.totalWins - b.totalLosses) - (a.totalWins - a.totalLosses))
+                    .slice(0, 10);
+                
+                if (sortedPlayers.length === 0) {
+                    container.innerHTML = `
+                        <div class="feature-card" style="text-align: center;">
+                            <h3>🏆 Aucun joueur encore</h3>
+                            <p>Les joueurs apparaîtront ici après s'être inscrits à des tournois</p>
+                        </div>
+                    `;
+                    return;
+                }
+                
+                container.innerHTML = `
+                    <div class="feature-card">
+                        <h3>🎯 Top 10 Joueurs</h3>
+                        ${sortedPlayers.map((player, index) => `
+                            <div class="player-item">
+                                <div>
+                                    <strong>#${index + 1} ${player.name}</strong>
+                                    <div style="color: var(--text-secondary); font-size: 0.9rem;">
+                                        ${player.discordTag} • W: ${player.totalWins} L: ${player.totalLosses}
+                                    </div>
+                                </div>
+                                <div style="font-weight: bold; color: #4CAF50;">
+                                    +${player.totalWins - player.totalLosses}
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+            }
+
+            // Mettre à jour les statistiques
+            updateStats() {
+                document.getElementById('statsTournaments').textContent = this.tournaments.length;
+                document.getElementById('statsPlayers').textContent = this.players.length;
+                document.getElementById('statsActive').textContent = this.tournaments.filter(t => t.status === 'open').length;
+                document.getElementById('statsMatches').textContent = this.tournaments.reduce((acc, t) => acc + t.matches.length, 0);
+            }
+
+            // Supprimer un tournoi
+            deleteTournament(tournamentId) {
+                if (confirm('Êtes-vous sûr de vouloir supprimer ce tournoi ?')) {
+                    this.tournaments = this.tournaments.filter(t => t.id !== tournamentId);
+                    this.saveToStorage('ssj3_tournaments', this.tournaments);
+                    this.updateStats();
+                    this.loadTournaments();
+                    this.showNotification('Tournoi supprimé!', 'success');
+                }
+            }
+
+            // Voir un tournoi
+            viewTournament(tournamentId) {
+                const tournament = this.tournaments.find(t => t.id === tournamentId);
+                if (tournament) {
+                    alert(`Détails du tournoi:\n\nNom: ${tournament.name}\nJoueurs: ${tournament.players.length}/${tournament.maxPlayers}\nStatut: ${tournament.status}`);
+                }
+            }
+
+            // Storage helpers
+            saveToStorage(key, data) {
+                localStorage.setItem(key, JSON.stringify(data));
+            }
+
+            loadFromStorage(key) {
+                const data = localStorage.getItem(key);
+                return data ? JSON.parse(data) : null;
+            }
+
+            // Notifications
+            showNotification(message, type = 'info') {
+                // Créer une notification temporaire
+                const notification = document.createElement('div');
+                notification.style.cssText = `
+                    position: fixed;
+                    top: 20px;
+                    right: 20px;
+                    background: ${type === 'success' ? '#4CAF50' : type === 'error' ? '#f44336' : '#2196F3'};
+                    color: white;
+                    padding: 15px 20px;
+                    border-radius: 8px;
+                    z-index: 1000;
+                    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+                `;
+                notification.textContent = message;
+                document.body.appendChild(notification);
                 
                 setTimeout(() => {
-                    btn.innerHTML = originalText;
-                    btn.style.background = '';
-                    btn.disabled = false;
-                }, 2000);
-            }, 1500);
-        }
-
-        function showStats() {
-            // Animation des compteurs
-            animateCounter('onlineCount', 72, 85, 2000);
-            animateCounter('tournamentCount', 3, 5, 1500); 
-            animateCounter('battleCount', 156, 189, 2500);
-            
-            // Petite notification visuelle
-            const btn = event.target;
-            const originalText = btn.innerHTML;
-            btn.innerHTML = '📈 Actualisation...';
-            
-            setTimeout(() => {
-                btn.innerHTML = originalText;
-                alert('📊 Statistiques mises à jour en direct!');
-            }, 1000);
-        }
-
-        function simulateBattle() {
-            const fighters = ['SonGoku', 'Vegeta', 'Freezer', 'Cell', 'Boo', 'Sangohan'];
-            const player1 = fighters[Math.floor(Math.random() * fighters.length)];
-            let player2;
-            do {
-                player2 = fighters[Math.floor(Math.random() * fighters.length)];
-            } while (player2 === player1);
-            
-            const winner = Math.random() > 0.5 ? player1 : player2;
-            const score = `${Math.floor(Math.random() * 3) + 1}-${Math.floor(Math.random() * 3) + 1}`;
-            
-            alert(`⚔️ COMBAT SIMULÉ!\n\n${player1} 🆚 ${player2}\n\nScore: ${score}\n🎊 VAINQUEUR: ${winner}`);
-        }
-
-        function shareServer() {
-            const inviteLink = 'https://discord.gg/ssj3botz';
-            
-            if (navigator.share) {
-                navigator.share({
-                    title: 'SSJ3 BOT-Z Discord',
-                    text: 'Rejoins le serveur Dragon Ball pour des tournois épiques! 🐉',
-                    url: inviteLink
-                });
-            } else {
-                navigator.clipboard.writeText(inviteLink);
-                alert('📋 Lien Discord copié! Collez-le à vos amis.');
+                    document.body.removeChild(notification);
+                }, 3000);
             }
         }
 
-        function showMatchDetails(matchId) {
-            const details = [
-                "SonGoku (SSJ3) 🆚 Vegeta (SSG)\n📍 Stage: Namek\n⏰ Prévu: 20:00\n🎯 Statut: En attente",
-                "Freezer (Final Form) 🆚 Cell (Perfect)\n📍 Stage: Cell Games\n🔥 Statut: En cours!\n📊 Score: 2-1",
-                "Boo (Evil) 🆚 Sangohan (Ultimate)\n🎊 Terminé: Boo gagne 3-2\n🏆 Qualifié: Boo"
-            ];
-            
-            alert(`📋 DÉTAILS MATCH ${matchId}:\n\n${details[matchId-1]}`);
-        }
+        // Initialiser le gestionnaire
+        const tournamentManager = new TournamentManager();
 
-        function submitTournament() {
-            const pseudo = document.getElementById('discord-pseudo').value;
-            const character = document.getElementById('main-character').value;
-            const level = document.getElementById('skill-level').value;
+        // Fonctions globales
+        function createTournament() {
+            const name = document.getElementById('tournamentName').value;
+            const description = document.getElementById('tournamentDesc').value;
+            const maxPlayers = document.getElementById('maxPlayers').value;
+            const type = document.getElementById('tournamentType').value;
+            const winRules = document.getElementById('winRules').value;
+            const rewards = document.getElementById('tournamentRewards').value;
+            const discordChannel = document.getElementById('discordChannel').value;
+            const participantRole = document.getElementById('participantRole').value;
             
-            if (!pseudo) {
-                alert('❌ Veuillez entrer votre pseudo Discord!');
+            if (!name) {
+                tournamentManager.showNotification('Veuillez donner un nom au tournoi!', 'error');
                 return;
             }
             
-            alert(`✅ INSCRIPTION CONFIRMÉE!\n\nPseudo: ${pseudo}\nPersonnage: ${character}\nNiveau: ${level}\n\nBonne chance! 🎮`);
+            tournamentManager.createTournament(
+                name, description, maxPlayers, type, winRules, rewards, discordChannel, participantRole
+            );
+            
+            // Réinitialiser le formulaire
+            document.getElementById('tournamentName').value = '';
+            document.getElementById('tournamentDesc').value = '';
         }
 
-        function animateCounter(elementId, start, end, duration) {
-            const element = document.getElementById(elementId);
-            let startTimestamp = null;
+        function joinSpecificTournament(tournamentId) {
+            const playerName = document.getElementById(`playerName_${tournamentId}`).value;
+            const discordTag = document.getElementById(`discordTag_${tournamentId}`).value;
             
-            const step = (timestamp) => {
-                if (!startTimestamp) startTimestamp = timestamp;
-                const progress = Math.min((timestamp - startTimestamp) / duration, 1);
-                const value = Math.floor(progress * (end - start) + start);
-                
-                element.textContent = value;
-                
-                if (progress < 1) {
-                    window.requestAnimationFrame(step);
-                }
-            };
+            if (!playerName || !discordTag) {
+                tournamentManager.showNotification('Veuillez remplir tous les champs!', 'error');
+                return;
+            }
             
-            window.requestAnimationFrame(step);
+            tournamentManager.joinTournament(tournamentId, playerName, discordTag);
+            
+            // Réinitialiser les champs
+            document.getElementById(`playerName_${tournamentId}`).value = '';
+            document.getElementById(`discordTag_${tournamentId}`).value = '';
         }
 
-        // Stats auto-update every 30 seconds
-        setInterval(() => {
-            const randomUpdate = Math.floor(Math.random() * 5) + 1;
-            const current = parseInt(document.getElementById('battleCount').textContent);
-            document.getElementById('battleCount').textContent = current + randomUpdate;
-        }, 30000);
+        function scrollToSection(sectionId) {
+            document.getElementById(sectionId).scrollIntoView({ 
+                behavior: 'smooth' 
+            });
+        }
 
-        // Online users random fluctuation
-        setInterval(() => {
-            const currentOnline = parseInt(document.getElementById('onlineCount').textContent);
-            const change = Math.floor(Math.random() * 6) - 3; // -3 to +2
-            const newCount = Math.max(70, currentOnline + change);
-            document.getElementById('onlineCount').textContent = newCount;
-        }, 45000);
+        // Service Worker pour PWA
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('./sw.js')
+                .then(() => console.log('PWA Ready!'))
+                .catch(console.error);
+        }
+
+        // Install Prompt
+        let installPrompt;
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            installPrompt = e;
+            
+            // Optionnel: Afficher un bouton d'installation
+            const installBtn = document.createElement('button');
+            installBtn.textContent = '📱 Installer';
+            installBtn.className = 'discord-btn';
+            installBtn.style.cssText = 'position: fixed; bottom: 20px; right: 20px; z-index: 1000;';
+            installBtn.onclick = () => installPrompt.prompt();
+            document.body.appendChild(installBtn);
+        });
     </script>
 </body>
 </html>
