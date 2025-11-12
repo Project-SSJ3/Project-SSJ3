@@ -1,0 +1,16 @@
+{
+  "name": "SSJ3 BOT-Z",
+  "short_name": "SSJ3BOTZ",
+  "description": "Bot Discord pour tournois Dragon Ball",
+  "start_url": "/",
+  "display": "standalone",
+  "theme_color": "#e94560",
+  "background_color": "#1a1a2e",
+  "icons": [
+    {
+      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>",
+      "sizes": "192x192",
+      "type": "image/svg+xml"
+    }
+  ]
+}
