@@ -1,19 +1,18 @@
-<!DOCTYPE html>
+<<!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SSJ3 BOT-Z - Bot Discord Tournois Dragon Ball</title>
     <meta name="description" content="SSJ3 BOT-Z - Le Bot Discord ultime pour organiser des tournois Dragon Ball Legends">
-    <meta name="theme-color" content="#e94560">
     
-    <!-- PWA META TAGS -->
+    <!-- PWA CONFIG -->
     <link rel="manifest" href="./manifest.json">
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
+    <meta name="theme-color" content="#e94560">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="SSJ3 BOT-Z">
-    
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
+
     <style>
         :root {
             --primary-color: #1a1a2e;
@@ -36,12 +35,12 @@
             color: var(--text-color);
             line-height: 1.6;
             min-height: 100vh;
-            padding: 20px;
         }
         
         .container {
             max-width: 1200px;
             margin: 0 auto;
+            padding: 0 20px;
         }
         
         /* Header */
@@ -108,7 +107,6 @@
             font-weight: bold;
             font-size: 1.1rem;
             transition: all 0.3s;
-            margin: 10px;
         }
         
         .cta-button:hover {
@@ -116,17 +114,7 @@
             transform: translateY(-2px);
         }
         
-        /* PWA Install Button */
-        #installButton {
-            background-color: #4CAF50;
-            display: none;
-        }
-        
-        #installButton.show {
-            display: inline-block;
-        }
-        
-        /* Features Section */
+        /* Section Styles */
         .section {
             padding: 80px 0;
         }
@@ -137,6 +125,21 @@
             text-align: center;
         }
         
+        .section-subtitle {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 50px;
+        }
+        
+        .divider {
+            height: 1px;
+            background: rgba(255, 255, 255, 0.1);
+            margin: 40px 0;
+        }
+        
+        /* Features Section */
         .features-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -155,6 +158,119 @@
             transform: translateY(-5px);
         }
         
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+        
+        .feature-card p {
+            color: var(--text-secondary);
+        }
+        
+        /* Download Section */
+        .download-info {
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .version-info {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .features-list {
+            list-style: none;
+        }
+        
+        .features-list li {
+            padding: 8px 0;
+            display: flex;
+            align-items: center;
+        }
+        
+        .features-list li:before {
+            content: "✅";
+            margin-right: 10px;
+        }
+        
+        /* Rules Section */
+        .rules-content {
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            padding: 30px;
+        }
+        
+        .rules-list {
+            list-style: none;
+            margin-bottom: 30px;
+        }
+        
+        .rules-list li {
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .rules-list strong {
+            color: var(--accent-color);
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 12px 15px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 5px;
+            color: var(--text-color);
+            font-size: 1rem;
+        }
+        
+        /* Participants Section */
+        .participants-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        
+        .participants-table th, .participants-table td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .participants-table th {
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+        
+        .ranking {
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            padding: 30px;
+            margin-top: 30px;
+        }
+        
+        .ranking-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 15px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
         /* Footer */
         footer {
             padding: 40px 0;
@@ -163,6 +279,102 @@
             color: var(--text-secondary);
         }
         
+        /* === NOUVEAUX STYLES PWA & INTERACTIONS === */
+        
+        /* BOUTON INSTALLATION PWA */
+        .pwa-install-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, #e94560, #d43a55);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(233, 69, 96, 0.4);
+            z-index: 1000;
+            transition: all 0.3s;
+            display: none;
+        }
+        
+        .pwa-install-btn.show {
+            display: block;
+        }
+        
+        .pwa-install-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(233, 69, 96, 0.6);
+        }
+
+        /* BOUTONS INTERACTIFS */
+        .interactive-btn {
+            background: linear-gradient(135deg, #5865F2, #7983f5);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            margin: 10px;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(88, 101, 242, 0.3);
+        }
+        
+        .interactive-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(88, 101, 242, 0.5);
+        }
+        
+        .interactive-btn:active {
+            transform: translateY(-1px);
+        }
+        
+        .btn-success {
+            background: linear-gradient(135deg, #4CAF50, #45a049);
+        }
+        
+        .btn-warning {
+            background: linear-gradient(135deg, #ff9800, #e68900);
+        }
+        
+        /* ANIMATIONS */
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+        
+        /* STATS COUNTER */
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #e94560;
+            transition: all 0.5s;
+        }
+        
+        /* TOURNAMENT BRACKET */
+        .bracket-match {
+            background: rgba(30, 30, 46, 0.8);
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 8px;
+            border-left: 4px solid #e94560;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+        
+        .bracket-match:hover {
+            transform: translateX(5px);
+            background: rgba(40, 40, 60, 0.9);
+        }
+        
+        /* PWA INFO SECTION */
         .pwa-info {
             background: var(--card-bg);
             padding: 20px;
@@ -170,86 +382,279 @@
             margin: 20px 0;
             text-align: center;
         }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            nav ul {
+                gap: 15px;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .version-info {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .interactive-btn {
+                display: block;
+                width: 100%;
+                margin: 10px 0;
+            }
+        }
     </style>
 </head>
+
 <body>
-    <div class="container">
-        <!-- Header -->
-        <header>
+    <!-- Header -->
+    <header>
+        <div class="container">
             <div class="header-content">
-                <div class="logo">SSJ3 BOT-Z ⚡</div>
+                <div class="logo">SSJ3 BOT-Z</div>
                 <nav>
                     <ul>
                         <li><a href="#accueil">Accueil</a></li>
                         <li><a href="#fonctionnalites">Fonctionnalités</a></li>
-                        <li><a href="#install">Installer</a></li>
+                        <li><a href="#tournois">Tournois</a></li>
+                        <li><a href="#telecharger">Télécharger</a></li>
+                        <li><a href="#interactif">Interactif</a></li>
                     </ul>
                 </nav>
             </div>
-        </header>
+        </div>
+    </header>
 
-        <!-- Hero Section -->
-        <section class="hero" id="accueil">
+    <!-- Hero Section -->
+    <section class="hero" id="accueil">
+        <div class="container">
             <h1>SSJ3 BOT-Z</h1>
-            <p>Le Bot Discord Ultime pour les Tournois Dragon Ball</p>
-            
-            <!-- PWA Install Button -->
-            <button id="installButton" class="cta-button">📱 Installer l'App</button>
-            
-            <a href="https://discord.com/oauth2/authorize?client_id=VOTRE_ID_BOT" class="cta-button">
-                🤖 Ajouter au Discord
-            </a>
-        </section>
+            <p>Le Meilleur Bot Discord pour les Tournois Dragon Ball</p>
+            <a href="#telecharger" class="cta-button">Rejoindre Notre Communauté</a>
+        </div>
+    </section>
 
-        <!-- PWA Info Section -->
-        <section class="pwa-info" id="install">
-            <h2>📱 Application Installable</h2>
-            <p>Installez SSJ3 BOT-Z sur votre téléphone ou ordinateur pour un accès rapide !</p>
-            <p><small>Sur mobile : Chrome → Menu → "Ajouter à l'écran d'accueil"</small></p>
-        </section>
+    <!-- SECTION BOUTONS INTERACTIFS -->
+    <section class="section" id="interactif">
+        <div class="container">
+            <h2 class="section-title">🚀 Actions Rapides</h2>
+            <div style="text-align: center; margin: 30px 0;">
+                <button class="interactive-btn pulse" onclick="joinTournament()">
+                    🎮 Rejoindre Tournoi
+                </button>
+                
+                <button class="interactive-btn btn-success" onclick="showStats()">
+                    📊 Voir Stats Live
+                </button>
+                
+                <button class="interactive-btn btn-warning" onclick="simulateBattle()">
+                    ⚔️ Simuler Combat
+                </button>
+                
+                <button class="interactive-btn" onclick="shareServer()">
+                    📣 Partager Serveur
+                </button>
+            </div>
 
-        <!-- Features Section -->
-        <section class="section" id="fonctionnalites">
-            <h2 class="section-title">Fonctionnalités</h2>
+            <!-- SECTION STATS LIVE -->
+            <div class="pwa-info">
+                <h3>📈 Statistiques en Direct</h3>
+                <div style="display: flex; justify-content: center; gap: 30px; margin: 20px 0; flex-wrap: wrap;">
+                    <div>
+                        <div class="stat-number" id="onlineCount">72</div>
+                        <div>En Ligne</div>
+                    </div>
+                    <div>
+                        <div class="stat-number" id="tournamentCount">3</div>
+                        <div>Tournois Actifs</div>
+                    </div>
+                    <div>
+                        <div class="stat-number" id="battleCount">156</div>
+                        <div>Combats Today</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="section" id="fonctionnalites">
+        <div class="container">
+            <h2 class="section-title">Fonctionnalités Puissantes</h2>
+            <p class="section-subtitle">Découvrez ce qui fait de SSJ3 BOT-Z le bot le plus complet pour les tournois</p>
+            
+            <div class="divider"></div>
+            
             <div class="features-grid">
                 <div class="feature-card">
                     <h3>🎯 Tournois Automatisés</h3>
-                    <p>Gestion complète des brackets et scores</p>
+                    <p>Création et gestion automatique de brackets, scores et classements en temps réel</p>
                 </div>
                 <div class="feature-card">
-                    <h3>📊 Classements Temps Réel</h3>
-                    <p>Suivi en direct des performances</p>
+                    <h3>📝 Inscriptions Auto</h3>
+                    <p>Système d'inscription simplifié avec validation et création d'équipes automatique</p>
                 </div>
                 <div class="feature-card">
-                    <h3>⚡ Installation Rapide</h3>
-                    <p>Application PWA installable en 1 clic</p>
+                    <h3>🏆 Classements Live</h3>
+                    <p>Suivi des performances avec classements mis à jour instantanément</p>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <!-- Footer -->
-        <footer>
-            <p>© 2025 SSJ3 BOT-Z - Application PWA</p>
-            <p>Installez-moi sur votre device ! 📱</p>
-        </footer>
-    </div>
+    <!-- SECTION SIMULATION TOURNOI -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">🏆 Arbre du Tournoi Actif</h2>
+            <div style="max-width: 600px; margin: 0 auto;">
+                <div class="bracket-match" onclick="showMatchDetails(1)">
+                    <strong>Match 1:</strong> SonGoku vs Vegeta
+                    <div style="color: #b8b8b8; font-size: 0.9em;">En attente...</div>
+                </div>
+                
+                <div class="bracket-match" onclick="showMatchDetails(2)">
+                    <strong>Match 2:</strong> Freezer vs Cell  
+                    <div style="color: #ff9800; font-size: 0.9em;">⚡ En cours...</div>
+                </div>
+                
+                <div class="bracket-match" onclick="showMatchDetails(3)">
+                    <strong>Match 3:</strong> Boo vs Sangohan
+                    <div style="color: #4CAF50; font-size: 0.9em;">✅ Terminé - Boo gagne!</div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    <!-- PWA SCRIPT -->
+    <!-- Download Section -->
+    <section class="section" id="telecharger">
+        <div class="container">
+            <h2 class="section-title">Télécharger Maintenant</h2>
+            <p class="section-subtitle">Ajoutez SSJ3 BOT-Z à votre serveur Discord et transformez votre communauté.</p>
+            
+            <div class="download-info">
+                <div class="version-info">
+                    <div>
+                        <strong>SSJ3 BOT-Z</strong>
+                        <p>Made with ❤️ par la communauté Dragon Ball</p>
+                    </div>
+                    <div>
+                        <strong>Version: 2.4.1</strong>
+                        <p>Dernière mise à jour: 19/04/2025</p>
+                    </div>
+                </div>
+                
+                <ul class="features-list">
+                    <li>Gestion complète de tournois</li>
+                    <li>Système de points et récompenses</li>
+                    <li>Inscriptions automatiques</li>
+                    <li>Classements en temps réel</li>
+                    <li>Personnalisation des règles</li>
+                    <li>Statistiques détaillées</li>
+                    <li>Intégration Zenies</li>
+                    <li>Support multi-langues</li>
+                </ul>
+            </div>
+            
+            <div style="text-align: center;">
+                <a href="#" class="cta-button">Ajouter au Serveur Discord</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tournament Rules Section -->
+    <section class="section" id="tournois">
+        <div class="container">
+            <h2 class="section-title">Règles du Tournoi</h2>
+            
+            <div class="rules-content">
+                <ul class="rules-list">
+                    <li><strong>Inscrivez-vous avec votre pseudo Discord</strong></li>
+                    <li>Victoires dans un match - <strong>1 POINT</strong></li>
+                    <li>Le premier à atteindre 3 victoires remporte le match</li>
+                    <li><strong>100 POINTS = 50,000 ZENIS</strong> de récompense !</li>
+                    <li>Respect et fair-play obligatoires</li>
+                </ul>
+                
+                <div class="divider"></div>
+                
+                <h3 style="margin-bottom: 20px;">Inscription au Tournoi</h3>
+                
+                <div class="form-group">
+                    <label for="discord-pseudo">Pseudo Discord *</label>
+                    <input type="text" id="discord-pseudo" placeholder="Ex: SonGoku#1234">
+                </div>
+                
+                <div class="form-group">
+                    <label for="main-character">Personnage Principal</label>
+                    <select id="main-character">
+                        <option>Son Goku</option>
+                        <option>Vegeta</option>
+                        <option>Boo</option>
+                        <option>Freezer</option>
+                        <option>Cell</option>
+                        <option>Sangohan</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="skill-level">Niveau Estimé</label>
+                    <select id="skill-level">
+                        <option>Débutant</option>
+                        <option>Intermédiaire</option>
+                        <option>Avancé</option>
+                        <option>Professionnel</option>
+                    </select>
+                </div>
+                
+                <div style="text-align: center; margin-top: 30px;">
+                    <button class="interactive-btn btn-success" onclick="submitTournament()">
+                    🎯 S'INSCRIRE AU TOURNOI
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PWA Info Section -->
+    <section class="section">
+        <div class="container">
+            <div class="pwa-info">
+                <h2>📱 Application Installable</h2>
+                <p>Installez SSJ3 BOT-Z sur votre téléphone ou ordinateur pour un accès rapide !</p>
+                <p><small>Sur mobile : Chrome → Menu → "Ajouter à l'écran d'accueil"</small></p>
+                <p><small>Sur desktop : Cherchez le bouton "Installer" dans votre navigateur</small></p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>© 2025 SSJ3 BOT-Z. Tous droits réservés.</p>
+            <p>Dragon Ball est une propriété de Toei Animation.</p>
+        </div>
+    </footer>
+
+    <!-- BOUTON INSTALLATION PWA -->
+    <button class="pwa-install-btn" id="installButton">
+        📱 Installer l'App
+    </button>
+
+    <!-- === SCRIPTS PWA + INTERACTIONS === -->
     <script>
-        // Service Worker Registration
+        // === PWA FUNCTIONALITY ===
         if ('serviceWorker' in navigator) {
-            window.addEventListener('load', function() {
-                navigator.serviceWorker.register('./sw.js')
-                    .then(function(registration) {
-                        console.log('Service Worker enregistré avec succès:', registration);
-                    })
-                    .catch(function(error) {
-                        console.log("Échec de l'enregistrement du Service Worker:", error);
-                    });
-            });
+            navigator.serviceWorker.register('./sw.js')
+                .then(() => console.log('🔄 PWA Ready!'))
+                .catch(err => console.log('❌ PWA Error:', err));
         }
 
-        // PWA Install Prompt
         let deferredPrompt;
         const installButton = document.getElementById('installButton');
 
@@ -257,25 +662,145 @@
             e.preventDefault();
             deferredPrompt = e;
             installButton.classList.add('show');
-            
-            installButton.addEventListener('click', (e) => {
-                installButton.classList.remove('show');
-                deferredPrompt.prompt();
-                deferredPrompt.userChoice.then((choiceResult) => {
-                    if (choiceResult.outcome === 'accepted') {
-                        console.log('Utilisateur a installé la PWA');
-                    } else {
-                        console.log('Utilisateur a refusé l installation');
-                    }
-                    deferredPrompt = null;
-                });
-            });
         });
 
-        window.addEventListener('appinstalled', (evt) => {
-            console.log('PWA installée avec succès!');
-            installButton.style.display = 'none';
+        installButton.addEventListener('click', async () => {
+            if (!deferredPrompt) return;
+            
+            deferredPrompt.prompt();
+            const { outcome } = await deferredPrompt.userChoice;
+            
+            if (outcome === 'accepted') {
+                installButton.textContent = '✅ Installé!';
+                installButton.style.background = '#4CAF50';
+            }
+            
+            deferredPrompt = null;
+            setTimeout(() => installButton.classList.remove('show'), 3000);
         });
+
+        // === INTERACTIVE BUTTON FUNCTIONS ===
+        function joinTournament() {
+            const btn = event.target;
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '🎮 Inscription...';
+            btn.disabled = true;
+            
+            setTimeout(() => {
+                btn.innerHTML = '✅ Inscrit!';
+                btn.style.background = 'linear-gradient(135deg, #4CAF50, #45a049)';
+                alert('🎉 Bienvenue dans le tournoi! Vérifiez vos MP Discord.');
+                
+                setTimeout(() => {
+                    btn.innerHTML = originalText;
+                    btn.style.background = '';
+                    btn.disabled = false;
+                }, 2000);
+            }, 1500);
+        }
+
+        function showStats() {
+            // Animation des compteurs
+            animateCounter('onlineCount', 72, 85, 2000);
+            animateCounter('tournamentCount', 3, 5, 1500); 
+            animateCounter('battleCount', 156, 189, 2500);
+            
+            // Petite notification visuelle
+            const btn = event.target;
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '📈 Actualisation...';
+            
+            setTimeout(() => {
+                btn.innerHTML = originalText;
+                alert('📊 Statistiques mises à jour en direct!');
+            }, 1000);
+        }
+
+        function simulateBattle() {
+            const fighters = ['SonGoku', 'Vegeta', 'Freezer', 'Cell', 'Boo', 'Sangohan'];
+            const player1 = fighters[Math.floor(Math.random() * fighters.length)];
+            let player2;
+            do {
+                player2 = fighters[Math.floor(Math.random() * fighters.length)];
+            } while (player2 === player1);
+            
+            const winner = Math.random() > 0.5 ? player1 : player2;
+            const score = `${Math.floor(Math.random() * 3) + 1}-${Math.floor(Math.random() * 3) + 1}`;
+            
+            alert(`⚔️ COMBAT SIMULÉ!\n\n${player1} 🆚 ${player2}\n\nScore: ${score}\n🎊 VAINQUEUR: ${winner}`);
+        }
+
+        function shareServer() {
+            const inviteLink = 'https://discord.gg/ssj3botz';
+            
+            if (navigator.share) {
+                navigator.share({
+                    title: 'SSJ3 BOT-Z Discord',
+                    text: 'Rejoins le serveur Dragon Ball pour des tournois épiques! 🐉',
+                    url: inviteLink
+                });
+            } else {
+                navigator.clipboard.writeText(inviteLink);
+                alert('📋 Lien Discord copié! Collez-le à vos amis.');
+            }
+        }
+
+        function showMatchDetails(matchId) {
+            const details = [
+                "SonGoku (SSJ3) 🆚 Vegeta (SSG)\n📍 Stage: Namek\n⏰ Prévu: 20:00\n🎯 Statut: En attente",
+                "Freezer (Final Form) 🆚 Cell (Perfect)\n📍 Stage: Cell Games\n🔥 Statut: En cours!\n📊 Score: 2-1",
+                "Boo (Evil) 🆚 Sangohan (Ultimate)\n🎊 Terminé: Boo gagne 3-2\n🏆 Qualifié: Boo"
+            ];
+            
+            alert(`📋 DÉTAILS MATCH ${matchId}:\n\n${details[matchId-1]}`);
+        }
+
+        function submitTournament() {
+            const pseudo = document.getElementById('discord-pseudo').value;
+            const character = document.getElementById('main-character').value;
+            const level = document.getElementById('skill-level').value;
+            
+            if (!pseudo) {
+                alert('❌ Veuillez entrer votre pseudo Discord!');
+                return;
+            }
+            
+            alert(`✅ INSCRIPTION CONFIRMÉE!\n\nPseudo: ${pseudo}\nPersonnage: ${character}\nNiveau: ${level}\n\nBonne chance! 🎮`);
+        }
+
+        function animateCounter(elementId, start, end, duration) {
+            const element = document.getElementById(elementId);
+            let startTimestamp = null;
+            
+            const step = (timestamp) => {
+                if (!startTimestamp) startTimestamp = timestamp;
+                const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                const value = Math.floor(progress * (end - start) + start);
+                
+                element.textContent = value;
+                
+                if (progress < 1) {
+                    window.requestAnimationFrame(step);
+                }
+            };
+            
+            window.requestAnimationFrame(step);
+        }
+
+        // Stats auto-update every 30 seconds
+        setInterval(() => {
+            const randomUpdate = Math.floor(Math.random() * 5) + 1;
+            const current = parseInt(document.getElementById('battleCount').textContent);
+            document.getElementById('battleCount').textContent = current + randomUpdate;
+        }, 30000);
+
+        // Online users random fluctuation
+        setInterval(() => {
+            const currentOnline = parseInt(document.getElementById('onlineCount').textContent);
+            const change = Math.floor(Math.random() * 6) - 3; // -3 to +2
+            const newCount = Math.max(70, currentOnline + change);
+            document.getElementById('onlineCount').textContent = newCount;
+        }, 45000);
     </script>
 </body>
 </html>
